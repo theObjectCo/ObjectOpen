@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>ObjectOpen Patterns</Title>
+    <PackageProjectUrl>www.object.pl</PackageProjectUrl>
+    <PackageIcon>object128.png</PackageIcon>
+    <RepositoryUrl>https://github.com/theObjectCo/ObjectOpen</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseFile>MIT 2023.txt</PackageLicenseFile>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="X:\OneDrive - Object\Firma\CI\00_Logo\01_Outputs\object128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="X:\OneDrive - Object\Firma\Licence\MIT 2023.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+</Project>
