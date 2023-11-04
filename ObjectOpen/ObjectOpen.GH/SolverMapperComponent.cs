@@ -44,7 +44,7 @@ namespace ObjectOpen.GH
         {
             if (CurrentSolver == null) return;
 
-            SolverInputs inputs = MapInputs(CurrentSolver.GetInputType(), DA);
+            SolverInputs inputs = MapInputs(CurrentSolver.GetInputsType(), DA);
             SetInputs(CurrentSolver, inputs);
 
             var result = CurrentSolver.Solve();
@@ -220,8 +220,8 @@ namespace ObjectOpen.GH
         {
             if (CurrentSolver == null) return;
 
-            Type inputType = CurrentSolver.GetInputType();
-            Type outputType = CurrentSolver.GetOutputType();
+            Type inputType = CurrentSolver.GetInputsType();
+            Type outputType = CurrentSolver.GetOutputsType();
 
             List<IGH_Param> inputs = new List<IGH_Param>(this.Params.Input);
             foreach (var item in inputs)

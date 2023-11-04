@@ -6,9 +6,9 @@ namespace ObjectOpen.Patterns.Solvers
     public abstract class Solver
     {
         public Solver() { }
-        public abstract Type GetInputType();
-        public abstract Type GetOutputType();
-        public abstract Type GetSettingType();
+        public abstract Type GetInputsType();
+        public abstract Type GetOutputsType();
+        public abstract Type GetSettingsType();
 
         public virtual Result Solve()
         {
@@ -29,32 +29,32 @@ namespace ObjectOpen.Patterns.Solvers
         public virtual string ToJSON() { return ""; }
         public abstract Result SolveInternal();
     }
-    public abstract class Solver<TInput, TSetting, TOutput> : Solver
-        where TInput : SolverInputs
-        where TSetting : SolverSettings
-        where TOutput : SolverOutputs
+    public abstract class Solver<TInputs, TSettings, TOutputs> : Solver
+        where TInputs : SolverInputs
+        where TSettings : SolverSettings
+        where TOutputs : SolverOutputs
     {
         public Solver() : base() { }
-        public Solver(TInput inputs, TSetting settings)
+        public Solver(TInputs inputs, TSettings settings)
         {
             Inputs = inputs;
             Settings = settings;
         }
-        public TInput Inputs { get; set; }
-        public TSetting Settings { get; set; }
-        public TOutput Outputs { get; set; }
+        public TInputs Inputs { get; set; }
+        public TSettings Settings { get; set; }
+        public TOutputs Outputs { get; set; }
 
-        public override Type GetInputType()
+        public override Type GetInputsType()
         {
-            return typeof(TInput);
+            return typeof(TInputs);
         }
-        public override Type GetOutputType()
+        public override Type GetOutputsType()
         {
-            return typeof(TOutput);
+            return typeof(TOutputs);
         }
-        public override Type GetSettingType()
+        public override Type GetSettingsType()
         {
-            return typeof(TSetting);
+            return typeof(TSettings);
         }
 
         public override string ToJSON()
