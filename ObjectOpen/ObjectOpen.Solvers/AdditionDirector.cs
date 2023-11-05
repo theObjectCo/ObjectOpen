@@ -5,9 +5,9 @@ namespace ObjectOpen.Solvers
     public class AdditionDirector : Director<DirectorInputs, DirectorSettings, DirectorOutputs>
     {
 
-        private AdditionSolver SolverA { get; set; } = new AdditionSolver();
-        private AdditionSolver SolverB { get; set; } = new AdditionSolver();
-        private AdditionSolver SolverC { get; set; } = new AdditionSolver();
+        private AdditionSolver SolverA { get; set; } = new AdditionSolver("SolverA");
+        private AdditionSolver SolverB { get; set; } = new AdditionSolver("SolverB");
+        private AdditionSolver SolverC { get; set; } = new AdditionSolver("SolverC");
 
         public override Result CreateInputsOutputs()
         {
@@ -18,34 +18,35 @@ namespace ObjectOpen.Solvers
 
         public override Result InitSolvers()
         {
-            SolverA.Inputs = new AdditionInputs(); 
-            SolverB.Inputs = new AdditionInputs(); 
-            SolverC.Inputs = new AdditionInputs(); 
+            SolverA.Inputs = new AdditionInputs();
+            SolverB.Inputs = new AdditionInputs();
+            SolverC.Inputs = new AdditionInputs();
 
-            this.Solvers.Add(SolverA);
+            //demonstrating the topology-based solver sorting, these will get sorted automatically
             this.Solvers.Add(SolverB);
             this.Solvers.Add(SolverC);
+            this.Solvers.Add(SolverA);
             return new Result();
         }
 
-        public override Result UpdateConnections()
+        public override void UpdateConnections(out Result result)
         {
+            result = new Result(); 
+
             //director input to solver a
-            this.DataConnections.Add(new DataConnection(this, SolverA, nameof(this.Inputs.Value), nameof(SolverA.Inputs.ValueA)));
-            this.DataConnections.Add(new DataConnection(this, SolverA, nameof(this.Inputs.Value), nameof(SolverA.Inputs.ValueB)));
+            result.Combine(this.TryAddConnection(new DataConnection(this, SolverA, nameof(this.Inputs.Value), nameof(SolverA.Inputs.ValueA))));
+            result.Combine(this.TryAddConnection(new DataConnection(this, SolverA, nameof(this.Inputs.Value), nameof(SolverA.Inputs.ValueB))));
 
             //director input to solver b
-            this.DataConnections.Add(new DataConnection(this, SolverB, nameof(this.Inputs.Value), nameof(SolverB.Inputs.ValueA)));
-            this.DataConnections.Add(new DataConnection(this, SolverB, nameof(this.Inputs.Value), nameof(SolverB.Inputs.ValueB)));
+            result.Combine(this.TryAddConnection(new DataConnection(this, SolverB, nameof(this.Inputs.Value), nameof(SolverB.Inputs.ValueA))));
+            result.Combine(this.TryAddConnection(new DataConnection(this, SolverB, nameof(this.Inputs.Value), nameof(SolverB.Inputs.ValueB))));
 
             //solver a and b to solver c
-            this.DataConnections.Add(new DataConnection(SolverA, SolverC, nameof(SolverA.Outputs.Value), nameof(SolverC.Inputs.ValueA)));
-            this.DataConnections.Add(new DataConnection(SolverB, SolverC, nameof(SolverB.Outputs.Value), nameof(SolverC.Inputs.ValueB)));
+            result.Combine(this.TryAddConnection(new DataConnection(SolverA, SolverC, nameof(SolverA.Outputs.Value), nameof(SolverC.Inputs.ValueA))));
+            result.Combine(this.TryAddConnection(new DataConnection(SolverB, SolverC, nameof(SolverB.Outputs.Value), nameof(SolverC.Inputs.ValueB))));
 
             //solver c to director output
-            this.DataConnections.Add(new DataConnection(SolverC, this, nameof(SolverC.Outputs.Value), nameof(this.Outputs.Value)));
-
-            return new Result();
+            result.Combine(this.TryAddConnection(new DataConnection(SolverC, this, nameof(SolverC.Outputs.Value), nameof(this.Outputs.Value))));
         }
     }
 

@@ -6,6 +6,13 @@ namespace ObjectOpen.Patterns.Solvers
     public abstract class Solver
     {
         public Solver() { }
+
+        public string Name { get; set; }
+        protected Solver(string name)
+        {
+            Name = name;
+        }
+
         public abstract Type GetInputsType();
         public abstract Type GetOutputsType();
         public abstract Type GetSettingsType();
@@ -35,11 +42,13 @@ namespace ObjectOpen.Patterns.Solvers
         where TOutputs : SolverOutputs
     {
         public Solver() : base() { }
-        public Solver(TInputs inputs, TSettings settings)
+        public Solver(TInputs inputs, TSettings settings, string name = "")
         {
             Inputs = inputs;
             Settings = settings;
+            Name = name;
         }
+        public Solver(string name) : base(name) { }
         public TInputs Inputs { get; set; }
         public TSettings Settings { get; set; }
         public TOutputs Outputs { get; set; }

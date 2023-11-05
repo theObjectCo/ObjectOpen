@@ -8,9 +8,8 @@ namespace ObjectOpen.Solvers
     /// </summary>
     public class AdditionSolver : Solver<AdditionInputs, EmptySettings, AdditionOutputs>
     {
-        public AdditionSolver()
-        {
-        }
+        public AdditionSolver() : base() { }
+        public AdditionSolver(string name) : base(name) { }
 
         public override Result SolveInternal()
         {
@@ -27,5 +26,4 @@ namespace ObjectOpen.Solvers
     {
         public double Value { get; set; }
     }
-
 }
