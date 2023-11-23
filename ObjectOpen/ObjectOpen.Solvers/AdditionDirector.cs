@@ -1,4 +1,5 @@
-﻿using ObjectOpen.Patterns.Solvers;
+﻿using System.Linq;
+using ObjectOpen.Patterns.Solvers;
 
 namespace ObjectOpen.Solvers
 {

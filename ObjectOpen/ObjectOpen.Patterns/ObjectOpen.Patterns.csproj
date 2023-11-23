@@ -1,31 +1,49 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net48</TargetFramework>
+		<TargetFrameworks>net6.0; net48</TargetFrameworks>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>ObjectOpen Patterns</Title>
+		<RepositoryType>git</RepositoryType>
+		<RepositoryUrl>https://github.com/theObjectCo/ObjectOpen</RepositoryUrl>
 		<PackageProjectUrl>www.object.pl</PackageProjectUrl>
 		<PackageIcon>object128.png</PackageIcon>
-		<RepositoryUrl>https://github.com/theObjectCo/ObjectOpen</RepositoryUrl>
-		<RepositoryType>git</RepositoryType>
 		<PackageLicenseFile>MIT 2023.txt</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<LangVersion>9.0</LangVersion>
+		<PackageVersion>1.1.0</PackageVersion>
+		<AssemblyVersion>1.1.0</AssemblyVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net48|AnyCPU'">
+	  <WarningLevel>5</WarningLevel>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net48|AnyCPU'">
+	  <WarningLevel>5</WarningLevel>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="X:\OneDrive - Object\Firma\CI\00_Logo\01_Outputs\object128.png">
+		<None Include="X:\OneDrive - Object\JDG\CI\00_Logo\01_Outputs\object128.png">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
-		<None Include="X:\OneDrive - Object\Firma\Licence\MIT 2023.txt">
+		<None Include="X:\OneDrive - Object\JDG\Licence\MIT 2023.txt">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 
 </Project>
