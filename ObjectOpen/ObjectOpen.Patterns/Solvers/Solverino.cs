@@ -38,6 +38,14 @@ namespace ObjectOpen.Patterns.Solvers
         public TInputs Inputs { get; set; }
         public TOutputs Outputs { get; set; }
         public abstract Result SolveInternal();
+        public override Type GetInputsType()
+        {
+            return typeof(TInputs);
+        }
+        public override Type GetOutputsType()
+        {
+            return typeof(TOutputs);
+        }
     }
 
     public abstract class StatelessSolverino<TInputs, TOutputs> : Solverino
