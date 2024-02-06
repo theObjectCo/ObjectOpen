@@ -2,6 +2,7 @@
 {
     public class Result
     {
+        public Result() { }
         public Result(Flag flag = Flag.OK, string message = "")
         {
             Flag = flag;
@@ -24,6 +25,16 @@
         {
             return $"[{Flag}] {Message}";
         }
+    }
+    public class Result<T> : Result
+    {
+        public Result() : base() { }
+        public Result(Flag flag = Flag.OK, string message = "") : base(flag, message) { }
+        public Result(T outputs, Flag flag = Flag.OK, string message = "") : base(flag, message)
+        {
+            Outputs = outputs;
+        }
+        public T Outputs { get; set; }
     }
     public enum Flag
     {

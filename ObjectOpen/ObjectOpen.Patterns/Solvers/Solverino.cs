@@ -3,21 +3,22 @@ using System.Collections.Generic;
 
 namespace ObjectOpen.Patterns.Solvers
 {
-   
-    public abstract class Solver
+    public abstract class Solverino
     {
-        public Solver() { }
-
+        protected Solverino() { }
+        protected Solverino(string name) { Name = name; }
         public string Name { get; set; }
-        protected Solver(string name)
-        {
-            Name = name;
-        }
-
         public abstract Type GetInputsType();
         public abstract Type GetOutputsType();
-        public abstract Type GetSettingsType();
+        public virtual string ToJSON() { return ""; }
+    }
 
+    public abstract class Solverino<TInputs, TOutputs> : Solverino
+    where TInputs : SolverInputs
+    where TOutputs : SolverOutputs
+    {
+        protected Solverino() : base() { }
+        public Solverino(string name = "") : base(name) { }
         public virtual Result Solve()
         {
             Result res;
@@ -34,26 +35,33 @@ namespace ObjectOpen.Patterns.Solvers
             return res;
         }
 
-        public virtual string ToJSON() { return ""; }
+        public TInputs Inputs { get; set; }
+        public TOutputs Outputs { get; set; }
         public abstract Result SolveInternal();
     }
-    public abstract class Solver<TInputs, TSettings, TOutputs> : Solver
+
+    public abstract class StatelessSolverino<TInputs, TOutputs> : Solverino
         where TInputs : SolverInputs
-        where TSettings : SolverSettings
         where TOutputs : SolverOutputs
     {
-        public Solver() : base() { }
-        public Solver(TInputs inputs, TSettings settings, string name = "")
+        public StatelessSolverino() : base() { }
+        public StatelessSolverino(string name = "") : base(name) { }
+        public abstract Result<TOutputs> SolveInternal(TInputs inputs);
+        public virtual Result<TOutputs> Solve(TInputs inputs)
         {
-            Inputs = inputs;
-            Settings = settings;
-            Name = name;
-        }
-        public Solver(string name) : base(name) { }
-        public TInputs Inputs { get; set; }
-        public TSettings Settings { get; set; }
-        public TOutputs Outputs { get; set; }
+            Result<TOutputs> res;
 
+            try
+            {
+                res = SolveInternal(inputs);
+            }
+            catch (Exception ex)
+            {
+                res = new Result<TOutputs>(Flag.Error, ex.Message);
+            }
+
+            return res;
+        }
         public override Type GetInputsType()
         {
             return typeof(TInputs);
@@ -61,10 +69,6 @@ namespace ObjectOpen.Patterns.Solvers
         public override Type GetOutputsType()
         {
             return typeof(TOutputs);
-        }
-        public override Type GetSettingsType()
-        {
-            return typeof(TSettings);
         }
 
         public override string ToJSON()
@@ -74,10 +78,6 @@ namespace ObjectOpen.Patterns.Solvers
                 { "SolverType", GetType().FullName },
                 { "Assembly", GetType().Assembly.FullName }
             };
-
-            if (Inputs != null) data.Add("Inputs", Inputs);
-            if (Settings != null) data.Add("Settings", Settings);
-            if (Outputs != null) data.Add("Outputs", Outputs);
 
             var sets = new Newtonsoft.Json.JsonSerializerSettings();
             sets.Formatting = Newtonsoft.Json.Formatting.Indented;
