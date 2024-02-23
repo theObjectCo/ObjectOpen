@@ -5,14 +5,8 @@
     }
     public abstract class SolverInputs : SolverData
     {
-    }
-    public abstract class SolverSettings : SolverData
-    {
-    }
+    } 
     public abstract class SolverOutputs : SolverData
     {
-    }
-    public class EmptySettings : SolverSettings
-    {
-    }
+    } 
 }

@@ -1,30 +1,31 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net48</TargetFramework>
-    <PackageLicenseFile>MIT 2023.txt</PackageLicenseFile>
-    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-	  <Title>ObjectOpen Solvers</Title>
-	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	  <PackageProjectUrl>www.object.pl</PackageProjectUrl>
-	  <PackageIcon>object128.png</PackageIcon>
-	  <RepositoryUrl>https://github.com/theObjectCo/ObjectOpen</RepositoryUrl>
-	  <RepositoryType>git</RepositoryType>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net48</TargetFramework>
+		<Version>1.2.4</Version>
+		<PackageLicenseFile>MIT 2023.txt</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<Title>ObjectOpen Solvers</Title>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageProjectUrl>www.object.pl</PackageProjectUrl>
+		<PackageIcon>object128.png</PackageIcon>
+		<RepositoryUrl>https://github.com/theObjectCo/ObjectOpen</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="X:\OneDrive - Object\JDG\CI\00_Logo\01_Outputs\object128.png">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-    <None Include="X:\OneDrive - Object\JDG\Licence\MIT 2023.txt">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="X:\OneDrive - Object\JDG\CI\00_Logo\01_Outputs\object128.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="X:\OneDrive - Object\JDG\Licence\MIT 2023.txt">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\ObjectOpen.Patterns\ObjectOpen.Patterns.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ObjectOpen.Patterns\ObjectOpen.Patterns.csproj" />
+	</ItemGroup>
 
 </Project>

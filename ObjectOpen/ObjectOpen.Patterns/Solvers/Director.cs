@@ -12,9 +12,8 @@ namespace ObjectOpen.Patterns.Solvers
     /// <typeparam name="TInputs"></typeparam>
     /// <typeparam name="TSettings"></typeparam>
     /// <typeparam name="TOutputs"></typeparam>
-    public abstract class Director<TInputs, TSettings, TOutputs> : Solver
+    public abstract class Director<TInputs, TOutputs> : Solver
         where TInputs : SolverInputs
-        where TSettings : SolverSettings
         where TOutputs : SolverOutputs
     {
         public Director()
@@ -27,7 +26,6 @@ namespace ObjectOpen.Patterns.Solvers
         private List<Solver> SortedSolvers { get; set; } = new List<Solver>();
         private List<DataConnection> DataConnections { get; set; } = new List<DataConnection>();
         public TInputs Inputs { get; set; }
-        public TSettings Settings { get; set; }
         public TOutputs Outputs { get; set; }
 
         /// <summary>
@@ -45,11 +43,7 @@ namespace ObjectOpen.Patterns.Solvers
         {
             return typeof(TOutputs);
         }
-
-        public override Type GetSettingsType()
-        {
-            return typeof(TSettings);
-        }
+         
 
         /// <summary>
         /// This method is called once in the constructor. 
@@ -244,11 +238,13 @@ namespace ObjectOpen.Patterns.Solvers
 
         public override string ToJSON()
         {
-            SortedList<string, object> data = new SortedList<string, object>();
-            data.Add("SolverType", GetType().FullName);
-            data.Add("Assembly", GetType().Assembly.FullName);
+            SortedList<string, object> data = new SortedList<string, object>
+            {
+                { "SolverType", GetType().FullName },
+                { "Assembly", GetType().Assembly.FullName }
+            };
+
             if (Inputs != null) data.Add("Inputs", Inputs);
-            if (Settings != null) data.Add("Settings", Settings);
             if (Outputs != null) data.Add("Outputs", Outputs);
 
             var sets = new Newtonsoft.Json.JsonSerializerSettings();

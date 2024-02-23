@@ -6,7 +6,7 @@ namespace ObjectOpen.Solvers
     /// The solver base class requires to spec the 3 types, that is input, settings and output data.
     /// If the settings are not necessary, EmptySettings class can be used. 
     /// </summary>
-    public class AdditionSolver : Solver<AdditionInputs, EmptySettings, AdditionOutputs>
+    public class AdditionSolver : Solver<AdditionInputs, AdditionOutputs>
     {
         public AdditionSolver() : base() { }
         public AdditionSolver(string name) : base(name) { }

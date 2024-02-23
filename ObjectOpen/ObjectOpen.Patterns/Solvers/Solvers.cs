@@ -3,22 +3,20 @@ using System.Collections.Generic;
 
 namespace ObjectOpen.Patterns.Solvers
 {
-    public abstract class Solverino
+
+    public abstract class Solver
     {
-        protected Solverino() { }
-        protected Solverino(string name) { Name = name; }
+        public Solver() { }
+
         public string Name { get; set; }
+        protected Solver(string name)
+        {
+            Name = name;
+        }
+
         public abstract Type GetInputsType();
         public abstract Type GetOutputsType();
-        public virtual string ToJSON() { return ""; }
-    }
 
-    public abstract class Solverino<TInputs, TOutputs> : Solverino
-    where TInputs : SolverInputs
-    where TOutputs : SolverOutputs
-    {
-        protected Solverino() : base() { }
-        public Solverino(string name = "") : base(name) { }
         public virtual Result Solve()
         {
             Result res;
@@ -35,9 +33,23 @@ namespace ObjectOpen.Patterns.Solvers
             return res;
         }
 
+        public virtual string ToJSON() { return ""; }
+        public abstract Result SolveInternal();
+    }
+    public abstract class Solver<TInputs, TOutputs> : Solver
+        where TInputs : SolverInputs
+        where TOutputs : SolverOutputs
+    {
+        public Solver() : base() { }
+        public Solver(TInputs inputs, string name = "")
+        {
+            Inputs = inputs;
+            Name = name;
+        }
+        public Solver(string name) : base(name) { }
         public TInputs Inputs { get; set; }
         public TOutputs Outputs { get; set; }
-        public abstract Result SolveInternal();
+
         public override Type GetInputsType()
         {
             return typeof(TInputs);
@@ -46,14 +58,31 @@ namespace ObjectOpen.Patterns.Solvers
         {
             return typeof(TOutputs);
         }
+
+        public override string ToJSON()
+        {
+            SortedList<string, object> data = new SortedList<string, object>
+            {
+                { "SolverType", GetType().FullName },
+                { "Assembly", GetType().Assembly.FullName }
+            };
+
+            if (Inputs != null) data.Add("Inputs", Inputs);
+            if (Outputs != null) data.Add("Outputs", Outputs);
+
+            var sets = new Newtonsoft.Json.JsonSerializerSettings();
+            sets.Formatting = Newtonsoft.Json.Formatting.Indented;
+
+            return Newtonsoft.Json.JsonConvert.SerializeObject(data, sets);
+        }
     }
 
-    public abstract class StatelessSolverino<TInputs, TOutputs> : Solverino
-        where TInputs : SolverInputs
-        where TOutputs : SolverOutputs
+    public abstract class StatelessSolver<TInputs, TOutputs> : Solver
+      where TInputs : SolverInputs
+      where TOutputs : SolverOutputs
     {
-        public StatelessSolverino() : base() { }
-        public StatelessSolverino(string name = "") : base(name) { }
+        public StatelessSolver() : base() { }
+        public StatelessSolver(string name = "") : base(name) { }
         public abstract Result<TOutputs> SolveInternal(TInputs inputs);
         public virtual Result<TOutputs> Solve(TInputs inputs)
         {
@@ -78,7 +107,6 @@ namespace ObjectOpen.Patterns.Solvers
         {
             return typeof(TOutputs);
         }
-
         public override string ToJSON()
         {
             SortedList<string, object> data = new SortedList<string, object>

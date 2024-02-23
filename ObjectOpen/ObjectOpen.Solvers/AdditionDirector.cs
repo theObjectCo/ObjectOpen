@@ -3,7 +3,7 @@ using ObjectOpen.Patterns.Solvers;
 
 namespace ObjectOpen.Solvers
 {
-    public class AdditionDirector : Director<DirectorInputs, DirectorSettings, DirectorOutputs>
+    public class AdditionDirector : Director<DirectorInputs, DirectorOutputs>
     {
 
         private AdditionSolver SolverA { get; set; } = new AdditionSolver("SolverA");
@@ -55,7 +55,6 @@ namespace ObjectOpen.Solvers
     {
         public double Value { get; set; }
     }
-    public class DirectorSettings : SolverSettings { }
     public class DirectorOutputs : SolverOutputs
     {
         public double Value { get; set; }

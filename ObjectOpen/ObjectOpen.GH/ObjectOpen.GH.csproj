@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net48</TargetFramework>
-		<Version>1.0</Version>
+		<Version>1.2.4</Version>
 		<Title>ObjectOpen Grasshopper Tools</Title>
 		<Description>ObjectOpen Grasshopper 3d utilities.</Description>
 		<TargetExt>.gha</TargetExt>
