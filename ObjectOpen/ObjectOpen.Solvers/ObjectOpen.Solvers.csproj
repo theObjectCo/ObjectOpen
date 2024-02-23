@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net48</TargetFramework>
-		<Version>1.2.4</Version>
+		<Version>1.2.5</Version>
 		<PackageLicenseFile>MIT 2023.txt</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<Title>ObjectOpen Solvers</Title>
