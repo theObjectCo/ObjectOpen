@@ -24,51 +24,27 @@ namespace ObjectOpen.MVVMExceptions.Models
 
         private double ComputeMetricBMI(double weight, double height)
         {
-            if (double.IsNaN(weight)) throw new ArgumentException($"{nameof(weight)} is not a number.");
-            if (double.IsNaN(height)) throw new ArgumentException($"{nameof(height)} is not a number.");
-
-            if (double.IsInfinity(weight)) throw new ArgumentException($"{nameof(weight)} is infinite.");
-            if (double.IsInfinity(height)) throw new ArgumentException($"{nameof(height)} is infinite.");
-
-            if (height == 0) throw new ArgumentException($"{nameof(height)} cannot be 0.");
-
             height *= CM_TO_M_MULTIPLIER;
-
             double height2 = height * height;
-
-            //check for double overflow 
-            if (double.IsInfinity(height2)) throw new ArgumentException($"{nameof(height2)} is infinite.");
-
-            double result = weight / height2;
+            double result = weight / height2; //this will throw if height2 is 0 (and it's 0 if height == 0)
 
             //because heigth2 can be very small, we need to check for infinity in result 
             if (double.IsInfinity(result)) throw new ArgumentException($"{nameof(result)} is infinite.");
+            if (double.IsNaN(result)) throw new ArgumentException($"{nameof(result)} is NaN.");
 
             return result;
         }
 
         private double ComputeImperialBMI(double weight, double height)
         {
-            if (double.IsNaN(weight)) throw new ArgumentException($"{nameof(weight)} is not a number.");
-            if (double.IsNaN(height)) throw new ArgumentException($"{nameof(height)} is not a number.");
-
-            if (double.IsInfinity(weight)) throw new ArgumentException($"{nameof(weight)} is infinite.");
-            if (double.IsInfinity(height)) throw new ArgumentException($"{nameof(height)} is infinite.");
-
-            if (height == 0) throw new ArgumentException($"{nameof(height)} cannot be 0.");
-
             double height2 = height * height;
-
-            //check for double overflow 
-            if (double.IsInfinity(height2)) throw new ArgumentException($"{nameof(height2)} is infinite.");
-
-            double result = (weight / height2) * IMPERIAL_MULTIPLIER;
+            double result = weight / height2 * IMPERIAL_MULTIPLIER;
 
             //because heigth2 can be very small, we need to check for infinity in result 
             if (double.IsInfinity(result)) throw new ArgumentException($"{nameof(result)} is infinite.");
+            if (double.IsNaN(result)) throw new ArgumentException($"{nameof(result)} is NaN.");
 
             return result;
         }
-
     }
 }
