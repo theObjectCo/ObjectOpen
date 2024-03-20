@@ -28,7 +28,7 @@ namespace ObjectOpen.MVVMExceptions.Models
             double height2 = height * height;
             double result = weight / height2; //this will throw if height2 is 0 (and it's 0 if height == 0)
 
-            //because heigth2 can be very small, we need to check for infinity in result 
+            //because height2 can be very small, we need to check for infinity in result 
             if (double.IsInfinity(result)) throw new ArgumentException($"{nameof(result)} is infinite.");
             if (double.IsNaN(result)) throw new ArgumentException($"{nameof(result)} is NaN.");
 
@@ -40,7 +40,7 @@ namespace ObjectOpen.MVVMExceptions.Models
             double height2 = height * height;
             double result = weight / height2 * IMPERIAL_MULTIPLIER;
 
-            //because heigth2 can be very small, we need to check for infinity in result 
+            //because height2 can be very small, we need to check for infinity in result 
             if (double.IsInfinity(result)) throw new ArgumentException($"{nameof(result)} is infinite.");
             if (double.IsNaN(result)) throw new ArgumentException($"{nameof(result)} is NaN.");
 
