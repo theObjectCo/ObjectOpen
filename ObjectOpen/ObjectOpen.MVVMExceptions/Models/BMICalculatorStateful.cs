@@ -18,11 +18,11 @@ namespace ObjectOpen.MVVMExceptions.Models
         public BMICalculatorStateful(Units units, double weight, double height)
         {
             //constructor changes the class state, hence the need for validation
-            if (units == Units.None) throw new Exception($"Invalid {nameof(units)}: {Units.None}");
+            if (units == Units.None) throw new ArgumentException($"Invalid {nameof(units)}: {Units.None}");
 
             //we use external class for validation, it's logic could be as well a part of this class
-            if (!(Validation.HeightValidator.Validate(height, units).Flag == Flag.OK)) throw new Exception($"Invalid {nameof(height)}");
-            if (!(Validation.WeightValidator.Validate(weight, units).Flag == Flag.OK)) throw new Exception($"Invalid {nameof(weight)}");
+            if (!(Validation.HeightValidator.Validate(height, units).Flag == Flag.OK)) throw new ArgumentException($"Invalid {nameof(height)}");
+            if (!(Validation.WeightValidator.Validate(weight, units).Flag == Flag.OK)) throw new ArgumentException($"Invalid {nameof(weight)}");
 
             //we can now safely change the object state
             _units = units;
@@ -39,8 +39,8 @@ namespace ObjectOpen.MVVMExceptions.Models
             else //its imperial
                 bmi = ComputeImperialBMI(_weight, _height);
 
-            if (double.IsInfinity(bmi)) throw new ArgumentException($"{nameof(bmi)} is infinite.");
-            if (double.IsNaN(bmi)) throw new ArgumentException($"{nameof(bmi)} is NaN.");
+            if (double.IsInfinity(bmi)) throw new InvalidOperationException($"{nameof(bmi)} is infinite.");
+            if (double.IsNaN(bmi)) throw new InvalidOperationException($"{nameof(bmi)} is NaN.");
 
             //can now safely change the state
             Bmi = bmi; 

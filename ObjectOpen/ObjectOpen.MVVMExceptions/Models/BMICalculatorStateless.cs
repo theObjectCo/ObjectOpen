@@ -16,8 +16,8 @@ namespace ObjectOpen.MVVMExceptions.Models
             else //its imperial
                 bmi = ComputeImperialBMI(weight, height);
 
-            if (double.IsInfinity(bmi)) throw new ArgumentException($"{nameof(bmi)} is infinite.");
-            if (double.IsNaN(bmi)) throw new ArgumentException($"{nameof(bmi)} is NaN.");
+            if (double.IsInfinity(bmi)) throw new InvalidOperationException($"{nameof(bmi)} is infinite.");
+            if (double.IsNaN(bmi)) throw new InvalidOperationException($"{nameof(bmi)} is NaN.");
 
             //can now safely return 
             return bmi;
