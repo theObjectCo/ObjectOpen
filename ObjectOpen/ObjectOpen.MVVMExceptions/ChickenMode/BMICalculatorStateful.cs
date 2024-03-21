@@ -1,7 +1,7 @@
 ﻿using ObjectOpen.MVVMExceptions.Localization;
 using ObjectOpen.Patterns.Solvers;
 
-namespace ObjectOpen.MVVMExceptions.Models
+namespace ObjectOpen.MVVMExceptions.ChickenMode
 {
     public class BMICalculatorStateful
     {
