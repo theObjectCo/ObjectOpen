@@ -10,6 +10,7 @@ namespace ObjectOpen.MVVMExceptions.Models
         private Units _units;
         public BMICalculator(Units units)
         {
+            //constructor changes the class state, hence the need for validation
             if (units == Units.None) throw new Exception($"Invalid {nameof(units)}: {Units.None}");
             _units = units;
         }
@@ -32,6 +33,7 @@ namespace ObjectOpen.MVVMExceptions.Models
             if (double.IsInfinity(result)) throw new ArgumentException($"{nameof(result)} is infinite.");
             if (double.IsNaN(result)) throw new ArgumentException($"{nameof(result)} is NaN.");
 
+            //we know result is not null, not infinity and not nan, we can safely return it
             return result;
         }
 
@@ -44,6 +46,7 @@ namespace ObjectOpen.MVVMExceptions.Models
             if (double.IsInfinity(result)) throw new ArgumentException($"{nameof(result)} is infinite.");
             if (double.IsNaN(result)) throw new ArgumentException($"{nameof(result)} is NaN.");
 
+            //we know result is not null, not infinity and not nan, we can safely return it
             return result;
         }
     }

@@ -26,6 +26,7 @@ namespace ObjectOpen.MVVMExceptions.ViewModels
         public ICommand RunCalculator => runCalculator ??= new RelayCommand(RunCalculatorMethod);
         private void RunCalculatorMethod(object? param)
         {
+             //we know Weight and Height are correct because of the input validation rules applied in the View
              BMI = _bmiCalculator.Calculate(Weight, Height);
         }
 
