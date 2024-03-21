@@ -5,60 +5,72 @@ namespace ObjectOpen.MVVMExceptions.Models
 {
     public class BMICalculatorStateful
     {
-        private const double CM_TO_M_MULTIPLIER = 0.01;
-        private const double IMPERIAL_MULTIPLIER = 703;
-
         private Units _units;
         private double _weight;
         private double _height;
 
         private double _bmi;
-        public double Bmi { get => _bmi; set => _bmi = value; }
 
         public BMICalculatorStateful(Units units, double weight, double height)
         {
-            //constructor changes the class state, hence the need for validation
-            if (units == Units.None) throw new ArgumentException($"Invalid {nameof(units)}: {Units.None}");
+            Units = units;
+            Weight = weight;
+            Height = height;
+        }
 
-            //we use external class for validation, it's logic could be as well a part of this class
-            if (!(Validation.HeightValidator.Validate(height, units).Flag == Flag.OK)) throw new ArgumentException($"Invalid {nameof(height)}");
-            if (!(Validation.WeightValidator.Validate(weight, units).Flag == Flag.OK)) throw new ArgumentException($"Invalid {nameof(weight)}");
+        public double BMI
+        {
+            get => _bmi;
+            set
+            {
+                if (double.IsInfinity(value)) throw new ArgumentException($"{nameof(value)} is infinite.");
+                if (double.IsNaN(value)) throw new ArgumentException($"{nameof(value)} is NaN.");
+                if (value < BMICalculatorStateless.MIN_BMI) throw new ArgumentException($"{nameof(value)} is smaller than {nameof(BMICalculatorStateless.MIN_BMI)}");
+                if (value > BMICalculatorStateless.MAX_BMI) throw new ArgumentException($"{nameof(value)} is smaller than {nameof(BMICalculatorStateless.MAX_BMI)}");
 
-            //we can now safely change the object state
-            _units = units;
-            _weight = weight;
-            _height = height;
+                _bmi = value;
+            }
+        }
+
+        public Units Units
+        {
+            get => _units;
+            private set
+            {
+                if (value == Units.None) throw new ArgumentException($"Invalid {nameof(value)}: {Units.None}");
+                _units = value;
+            }
+        }
+        public double Weight
+        {
+            get => _weight;
+            private set
+            {
+                if (!(Validation.HeightValidator.Validate(value, Units).Flag == Flag.OK)) throw new ArgumentException($"Invalid {nameof(value)}");
+                _weight = value;
+            }
+        }
+        public double Height
+        {
+            get => _height;
+            private set
+            {
+                if (!(Validation.WeightValidator.Validate(value, Units).Flag == Flag.OK)) throw new ArgumentException($"Invalid {nameof(value)}");
+                _height = value;
+            }
         }
 
         public void Calculate()
         {
             double bmi;
 
-            if (_units == Units.Metric)
-                bmi = ComputeMetricBMI(_weight, _height);
+            if (Units == Units.Metric)
+                bmi = BMICalculatorStateless.ComputeMetricBMI(Weight, Height);
             else //its imperial
-                bmi = ComputeImperialBMI(_weight, _height);
+                bmi = BMICalculatorStateless.ComputeImperialBMI(Weight, Height);
 
-            if (double.IsInfinity(bmi)) throw new InvalidOperationException($"{nameof(bmi)} is infinite.");
-            if (double.IsNaN(bmi)) throw new InvalidOperationException($"{nameof(bmi)} is NaN.");
-
-            //can now safely change the state
-            Bmi = bmi; 
-        }
-
-        private double ComputeMetricBMI(double weight, double height)
-        {
-            height *= CM_TO_M_MULTIPLIER;
-            double height2 = height * height;
-            double result = weight / height2; //this will throw if height2 is 0 (and it's 0 if height == 0)
-            return result;
-        }
-
-        private double ComputeImperialBMI(double weight, double height)
-        {
-            double height2 = height * height;
-            double result = weight / height2 * IMPERIAL_MULTIPLIER;
-            return result;
+            //setter will throw if invalid
+            BMI = bmi;
         }
     }
 }
