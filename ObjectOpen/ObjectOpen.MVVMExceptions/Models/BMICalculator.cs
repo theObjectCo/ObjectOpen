@@ -14,7 +14,7 @@ namespace ObjectOpen.MVVMExceptions.Models
         {
             get => _units; set
             {
-                if (value == Units.None) throw new ArgumentException($"Invalid {nameof(value)}: {Units.None}");
+                if (!(value == Units.Imperial || value == Units.Metric)) throw new ArgumentException($"Invalid {nameof(value)}: {value}");
                 _units = value;
             }
         }
