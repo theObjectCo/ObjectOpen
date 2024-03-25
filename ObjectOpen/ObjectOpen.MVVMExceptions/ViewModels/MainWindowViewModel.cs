@@ -1,7 +1,6 @@
 ﻿using System.Windows.Input;
 using ObjectOpen.MVVMExceptions.Localization;
 using ObjectOpen.MVVMExceptions.Models;
-using static ObjectOpen.MVVMExceptions.Models.BMICalculator;
 
 namespace ObjectOpen.MVVMExceptions.ViewModels
 {
@@ -11,7 +10,7 @@ namespace ObjectOpen.MVVMExceptions.ViewModels
         private double _height = 150;
         private double _bmi;
 
-        private BMICalculator _bmiCalculator = new BMICalculator(Units.Metric); 
+        private BMICalculator _bmiCalculator = new BMICalculator(Units.Metric);
 
         public MainWindowViewModel()
         {
@@ -26,8 +25,8 @@ namespace ObjectOpen.MVVMExceptions.ViewModels
         public ICommand RunCalculator => runCalculator ??= new RelayCommand(RunCalculatorMethod);
         private void RunCalculatorMethod(object? param)
         {
-             //we know Weight and Height are correct because of the input validation rules applied in the View
-             BMI = _bmiCalculator.Calculate(Weight, Height);
+            //we know Weight and Height are correct because of the input validation rules applied in the View
+            BMI = _bmiCalculator.Calculate(Weight, Height);
         }
 
 
