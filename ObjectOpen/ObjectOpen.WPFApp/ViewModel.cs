@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ObjectOpen.WPFApp
@@ -10,10 +11,18 @@ namespace ObjectOpen.WPFApp
 
         public ViewModel()
         {
-            List<Employee>? existingEmployees = Model.GetCurrentEmployees();
-            Employees = existingEmployees == null || existingEmployees.Count == 0
-                ? new ObservableCollection<Employee>()
-                : new ObservableCollection<Employee>(existingEmployees);
+            try
+            {
+                List<Employee> existingEmployees = Model.GetExistingEmployees();
+
+                Employees = existingEmployees == null || existingEmployees.Count == 0
+                    ? new ObservableCollection<Employee>()
+                    : new ObservableCollection<Employee>(existingEmployees);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Well, shit", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         public ObservableCollection<Employee> Employees { get; private set; } = new ObservableCollection<Employee>();

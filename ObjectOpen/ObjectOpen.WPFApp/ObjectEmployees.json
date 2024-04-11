@@ -1,0 +1,32 @@
+[
+  {
+    "Name": "Mateusz Zwierzycki",
+    "About": "Founder, teacher, dad jokes expert, clean code fanatic",
+    "YearsAtObject": "Infinity"
+  },
+  {
+    "Name": "Tomasz Paleski",
+    "About": "Jack of all trades, generalist, passionate about tests, can tolerate people",
+    "YearsAtObject": 3
+  },
+  {
+    "Name": "Jakub Oszczyk",
+    "About": "An academic tutor, looks great on the dance floor, loves mathematics, is scared of tests",
+    "YearsAtObject": 3
+  },
+  {
+    "Name": "Agnieszka Nowacka",
+    "About": "Designed a boat at the Expo in Dubai, enthusiastic traveller, strong coder",
+    "YearsAtObject": 1
+  },
+  {
+    "Name": "Aleksander D\u0027Artan\u0027arek",
+    "About": "The fearless Witcher, most of all enjoys trimming and welding",
+    "YearsAtObject": 3
+  },
+  {
+    "Name": "Kiryl Furmanchuk",
+    "About": "Failed at university, is scared of milk, loves coding though",
+    "YearsAtObject": 3
+  }
+]
