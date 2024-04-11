@@ -5,22 +5,22 @@ namespace ObjectOpen.WPFApp
 {
     public class RelayCommand : ICommand
     {
-        readonly Action<object> _execute;
-        readonly Predicate<object> _canExecute;
+        readonly Action<object?> _execute;
+        readonly Predicate<object?>? _canExecute;
 
-        public RelayCommand(Action<object>? execute) : this(execute, null) { }
+        public RelayCommand(Action<object?> execute) : this(execute, null) { }
 
-        public RelayCommand(Action<object>? execute, Predicate<object>? canExecute)
+        public RelayCommand(Action<object?> execute, Predicate<object?>? canExecute)
         {
-            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
-            _canExecute = canExecute ?? throw new ArgumentNullException(nameof(canExecute));
+            _execute = execute ?? throw new ArgumentNullException("execute");
+            _canExecute = canExecute;
         }
 
         [DebuggerStepThrough]
-        public bool CanExecute(object? parameter) =>
-            _canExecute == null || _canExecute(parameter
-                ?? throw new ArgumentNullException(nameof(parameter)));
-
+        public bool CanExecute(object? parameter)
+        {
+            return _canExecute == null || _canExecute(parameter);
+        }
 
         public event EventHandler? CanExecuteChanged
         {
@@ -28,8 +28,6 @@ namespace ObjectOpen.WPFApp
             remove { CommandManager.RequerySuggested -= value; }
         }
 
-        public void Execute(object? parameter) =>
-            _execute(parameter
-                ?? throw new ArgumentNullException(nameof(parameter)));
+        public void Execute(object? parameter) { _execute(parameter); }
     }
 }
