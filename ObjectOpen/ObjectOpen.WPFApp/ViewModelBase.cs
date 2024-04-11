@@ -8,7 +8,7 @@ namespace ObjectOpen.WPFApp
 {
     public class ViewModelBase : INotifyPropertyChanged
     {
-        public ViewModelBase() {; }
+        public ViewModelBase() { }
 
         public string DisplayName { get; set; } = "";
         public bool ThrowOnInvalidPropertyName { get; set; } = false;
