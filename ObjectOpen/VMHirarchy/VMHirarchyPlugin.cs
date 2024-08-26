@@ -33,11 +33,7 @@ namespace VMHirarchy
 
         protected override LoadReturnCode OnLoad(ref string errorMessage)
         {
-            var resources = new ResourceDictionary
-            {
-                Source = new Uri("pack://application:,,,/VMHirarchy;component/Views/DataContextsPool.xaml")
-            };
-            Application.Current.Resources.MergedDictionaries.Add(resources);
+            InitialiseViewModels();
 
             try
             {
@@ -50,6 +46,19 @@ namespace VMHirarchy
             }
 
             return LoadReturnCode.Success;
+        }
+
+        /// <summary>
+        /// Initialisation of a global Resource dictionary that will contain ViewModel objects
+        /// </summary>
+        private void InitialiseViewModels()
+        {
+            var resources = new ResourceDictionary
+            {
+                Source = new Uri("pack://application:,,,/VMHirarchy;component/Views/DataContextsContainer.xaml")
+            };
+
+            Application.Current.Resources.MergedDictionaries.Add(resources);
         }
 
         private Icon LoadEmbeddedIcon(string resourceName)

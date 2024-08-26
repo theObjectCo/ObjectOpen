@@ -2,6 +2,16 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="clr-namespace:VMHirarchy.ViewModels">
 
+    <!--Current pattern explores the mechanism of dependency injection between viewmodels 
+    that by design depend on each other.
+    
+    Here, viewmodels and their relationships are initialised
+    
+    In WPF, when resource dictionary is merged, new objects are created.
+    Due to the above fact, current object is supposed to be called into being on plugin load,
+    that way each viewmodel object is created once (essentially Singleton pattern) 
+    and can be safely fetched by a view and set as its' DataContext-->
+
     <vm:MainVM x:Key="MainVM"/>
 
     <vm:WordsTableVM x:Key="WordsTableVM"
