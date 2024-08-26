@@ -1,0 +1,68 @@
+﻿using Rhino.PlugIns;
+using Rhino.UI;
+using System;
+using System.Drawing;
+using System.IO;
+using System.Reflection;
+using System.Windows;
+using VMHirarchy.Views;
+
+namespace VMHirarchy
+{
+    ///<summary>
+    /// <para>Every RhinoCommon .rhp assembly must have one and only one PlugIn-derived
+    /// class. DO NOT create instances of this class yourself. It is the
+    /// responsibility of Rhino to create an instance of this class.</para>
+    /// <para>To complete plug-in information, please also see all PlugInDescription
+    /// attributes in AssemblyInfo.cs (you might need to click "Project" ->
+    /// "Show All Files" to see it in the "Solution Explorer" window).</para>
+    ///</summary>
+    public class VMHirarchyPlugin : Rhino.PlugIns.PlugIn
+    {
+        public VMHirarchyPlugin()
+        {
+            Instance = this;
+        }
+
+        ///<summary>Gets the only instance of the VMHirarchyPlugin plug-in.</summary>
+        public static VMHirarchyPlugin Instance { get; private set; }
+
+        // You can override methods here to change the plug-in behavior on
+        // loading and shut down, add options pages to the Rhino _Option command
+        // and maintain plug-in wide options in a document.
+
+        protected override LoadReturnCode OnLoad(ref string errorMessage)
+        {
+            var resources = new ResourceDictionary
+            {
+                Source = new Uri("pack://application:,,,/VMHirarchy;component/Views/DataContextsPool.xaml")
+            };
+            Application.Current.Resources.MergedDictionaries.Add(resources);
+
+            try
+            {
+                Panels.RegisterPanel(this, typeof(MainTab), "VMHirarchy", LoadEmbeddedIcon("VMHirarchy.EmbeddedResources.plugin-utility.ico"), PanelType.PerDoc);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                return LoadReturnCode.ErrorShowDialog;
+            }
+
+            return LoadReturnCode.Success;
+        }
+
+        private Icon LoadEmbeddedIcon(string resourceName)
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            {
+                if (stream == null)
+                    throw new InvalidOperationException($"Embedded resource {resourceName} not found");
+
+                return new System.Drawing.Icon(stream);
+            }
+        }
+    }
+}
