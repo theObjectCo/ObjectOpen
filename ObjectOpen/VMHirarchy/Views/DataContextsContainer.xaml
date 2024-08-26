@@ -18,7 +18,7 @@
                      Parent="{StaticResource MainVM}"/>
 
     <vm:NewWordButtonVM x:Key="ButtonVM"
-                        Parent="{StaticResource MainVM}"
-                        Sibling="{StaticResource WordsTableVM}"/>
+                        GrandParent="{StaticResource MainVM}"
+                        Parent="{StaticResource WordsTableVM}"/>
 
 </ResourceDictionary>

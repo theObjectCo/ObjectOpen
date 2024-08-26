@@ -20,7 +20,7 @@ namespace VMHirarchy.ViewModels
 
             _currentPluginIndex++;
 
-            if (_loadedPluginsNames.Length == _currentPluginIndex)
+            if (_loadedPluginsNames.Length >= _currentPluginIndex)
                 return false;
 
             nextName = _loadedPluginsNames[_currentPluginIndex];

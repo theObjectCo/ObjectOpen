@@ -12,18 +12,18 @@ namespace VMHirarchy.ViewModels
             _fetchNewWord = new RelayCommand(FetchNewWordMethod);
         }
 
-        public MainVM Parent { get; set; }
-        public WordsTableVM Sibling { get; set; }
+        public MainVM GrandParent { get; set; }
+        public WordsTableVM Parent { get; set; }
 
         public ICommand FetchNewWord =>
             _fetchNewWord;
 
         private void FetchNewWordMethod(object obj)
         {
-            if (Sibling.TryGetNextName(out string nextName))
-                Parent.AddAName(nextName);
+            if (Parent.TryGetNextName(out string nextName))
+                GrandParent.AddAName(nextName);
             else
-                Parent.DeclareEndOfNames();
+                GrandParent.DeclareEndOfNames();
         }
     }
 }
