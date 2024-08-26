@@ -1,29 +1,34 @@
 ﻿using Architect.Builder.ViewModels.Base;
+using Rhino.PlugIns;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace VMHirarchy.ViewModels
 {
     public class WordsTableVM : ViewModelBase
     {
-        private readonly string[] _loadedPluginsNames;
+        private readonly List<PlugInInfo> _loadedPluginsData;
         private int _currentPluginIndex = 0;
 
         public WordsTableVM()
         {
-            _loadedPluginsNames = Rhino.PlugIns.PlugIn.GetInstalledPlugInNames();
+            _loadedPluginsData = PlugIn.GetInstalledPlugIns()
+                .Select(keyVal => PlugIn.GetPlugInInfo(keyVal.Key))
+                .ToList();
         }
 
         public MainVM Parent { get; set; }
 
-        public bool TryGetNextName(out string nextName)
+        public bool TryGetNextPluginInfo(out PlugInInfo nextInfo)
         {
-            nextName = string.Empty;
+            nextInfo = null;
 
             _currentPluginIndex++;
 
-            if (_loadedPluginsNames.Length <= _currentPluginIndex)
+            if (_loadedPluginsData.Count <= _currentPluginIndex)
                 return false;
 
-            nextName = _loadedPluginsNames[_currentPluginIndex];
+            nextInfo = _loadedPluginsData[_currentPluginIndex];
             return true;
         }
     }

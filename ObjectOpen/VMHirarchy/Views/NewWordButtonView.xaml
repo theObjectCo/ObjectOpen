@@ -15,6 +15,6 @@
 
     <Grid>
         <Button Content="Get next plugin name"
-                Command="{Binding FetchNewWord}"/>
+                Command="{Binding FetchNewInfo}"/>
     </Grid>
 </UserControl>

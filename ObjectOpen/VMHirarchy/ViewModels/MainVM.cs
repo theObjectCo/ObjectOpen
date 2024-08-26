@@ -1,4 +1,5 @@
 ﻿using Architect.Builder.ViewModels.Base;
+using Rhino.PlugIns;
 using System.Collections.ObjectModel;
 using System.Windows;
 
@@ -8,20 +9,15 @@ namespace VMHirarchy.ViewModels
     {
         public MainVM()
         {
-            PluginsNames = new ObservableCollection<string>();
+            PluginsInfos = new ObservableCollection<PlugInInfo>();
         }
 
-        public ObservableCollection<string> PluginsNames { get; private set; }
+        public ObservableCollection<PlugInInfo> PluginsInfos { get; private set; }
 
-        public void AddAName(string nextName)
-        {
-            PluginsNames.Add(nextName);
-            base.OnPropertyChanged(nameof(PluginsNames));
-        }
+        public void AddData(PlugInInfo nextInfo) =>
+            PluginsInfos.Add(nextInfo);
 
-        internal void DeclareEndOfNames()
-        {
+        public void DeclareEndOfNames() =>
             MessageBox.Show("We're out of loaded plugins");
-        }
     }
 }

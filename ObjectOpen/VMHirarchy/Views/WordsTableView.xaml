@@ -21,15 +21,22 @@
         </Grid.RowDefinitions>
 
         <DataGrid Grid.Row="0"
-                  ItemsSource="{Binding Parent.PluginsNames}"
+                  ItemsSource="{Binding Parent.PluginsInfos}"
                   AutoGenerateColumns="False">
+
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Installed plugins"
-                                    Binding="{Binding}"/>
+                <DataGridTextColumn Header="Plugin name"                                    
+                                    Binding="{Binding Name}"
+                                    Width="*"/>
+
+                <DataGridTextColumn Header="Plugin load time"
+                                    Binding="{Binding PlugInLoadTime}"
+                                    Width="auto"/>
             </DataGrid.Columns>
+
         </DataGrid>
 
         <local:NewWordButtonView Grid.Row="1"/>
-        
+
     </Grid>
 </UserControl>
