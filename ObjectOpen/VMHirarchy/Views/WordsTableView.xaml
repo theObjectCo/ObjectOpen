@@ -14,12 +14,22 @@
     </UserControl.DataContext>
 
     <Grid>
-        <DataGrid ItemsSource="{Binding Parent.PluginsNames}"
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <DataGrid Grid.Row="0"
+                  ItemsSource="{Binding Parent.PluginsNames}"
                   AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Installed plugins"
                                     Binding="{Binding}"/>
             </DataGrid.Columns>
         </DataGrid>
+
+        <local:NewWordButtonView Grid.Row="1"/>
+        
     </Grid>
 </UserControl>

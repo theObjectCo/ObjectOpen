@@ -14,13 +14,6 @@
     </UserControl.DataContext>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-
-        <local:WordsTableView Grid.Row="0"/>
-        <local:NewWordButtonView Grid.Row="1"/>
-
+        <local:WordsTableView/>
     </Grid>
 </UserControl>
