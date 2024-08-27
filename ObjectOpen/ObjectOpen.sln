@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObjectOpen.Solvers", "Objec
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObjectOpen.GH", "ObjectOpen.GH\ObjectOpen.GH.csproj", "{3DCD10CA-67E7-47DF-A688-5F620ADEF18E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectOpen.WPFApp", "ObjectOpen.WPFApp\ObjectOpen.WPFApp.csproj", "{6E747DF6-E09A-4FFB-A576-7AA7697639CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObjectOpen.WPFApp", "ObjectOpen.WPFApp\ObjectOpen.WPFApp.csproj", "{6E747DF6-E09A-4FFB-A576-7AA7697639CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VMHirarchy", "VMHirarchy\VMHirarchy.csproj", "{D4CC8872-2D43-495C-9AD4-66851632A5D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{6E747DF6-E09A-4FFB-A576-7AA7697639CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E747DF6-E09A-4FFB-A576-7AA7697639CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E747DF6-E09A-4FFB-A576-7AA7697639CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4CC8872-2D43-495C-9AD4-66851632A5D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4CC8872-2D43-495C-9AD4-66851632A5D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4CC8872-2D43-495C-9AD4-66851632A5D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4CC8872-2D43-495C-9AD4-66851632A5D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
